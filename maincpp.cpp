@@ -2,8 +2,8 @@
 using namespace sf;
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(500, 600), "SFML works!");
-    sf::CircleShape shape(150.f);
+    sf::RenderWindow window(sf::VideoMode(500, 600), "Tetris_Try");
+   // sf::CircleShape shape(150.f);
    // shape.setFillColor(sf::Color::Green);
 
     while (window.isOpen())
@@ -18,7 +18,12 @@ int main()
         window.clear(Color::White);
 
         Texture texture;
-        window.draw(shape);
+        texture.loadFromFile("C:\\Users\\ƒмитрий\\Desktop\\C++(+MVS)_обучение\\Tetris\\SpriteTry.bmp");
+        
+        texture.setRepeated(true);
+
+        Sprite sprite(texture,IntRect(0,0,400,198));
+        window.draw(sprite);
         window.display();
     }
 
