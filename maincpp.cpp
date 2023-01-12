@@ -2,14 +2,14 @@
 using namespace sf;
 
 //make a game field
-int const N = 20;
-int const M = 30;
-int gameField[N][M] = { 0 };
+int const H = 20;
+int const W = 30;
+int gameField[H][W] = { 0 };
 
 //make an arrow for tetramino
 int Figures[7][4] =
 {
-    2,3,4,5,       //O
+    2,3,4,5,       //O 
     3,4,5,7,       //T
     3,4,5,6,       //Z
     3,5,7,6,       //J
@@ -33,7 +33,7 @@ int main()
     texture.loadFromFile("C:\\Users\\ƒмитрий\\Desktop\\C++(+MVS)_обучение\\Tetris\\SpriteTry.bmp");
 
     Sprite sprite(texture);
-    sprite.setTextureRect(IntRect(0, 0, 18, 18));
+    sprite.setTextureRect(IntRect(0, 0,18 , 18));
     while (window.isOpen())
     {
         Event event;
@@ -43,10 +43,24 @@ int main()
                 window.close();
         }
 
+        int n = 3;
+        for (int i = 0;i<4;i++)
+        {
+            a[i].x = Figures[n][i] % 2;
+            a[i].x = Figures[n][i] / 2;
+
+        }
         window.clear(Color::White);
 
-        texture.setRepeated(true);
-        window.draw(sprite);
+        for (int i=0;i<4;i++)
+        {
+            sprite.setPosition(a[i].x * 18, a[i].y * 18);
+
+            window.draw(sprite);
+
+        }
+        // texture.setRepeated(true);
+        
         window.display();
     }
 
