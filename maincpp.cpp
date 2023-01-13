@@ -1,10 +1,11 @@
+ï»¿#include<iostream>
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
 //make a game field
-int const H = 20;
-int const W = 30;
-int gameField[H][W] = { 0 };
+int const Height = 20;
+int const Weidth = 30;
+int gameField[Height][Weidth] = { 0 };
 
 //make an arrow for tetramino
 int Figures[7][4] =
@@ -30,10 +31,13 @@ int main()
     sf::RenderWindow window(sf::VideoMode(500, 600), "Tetris_Try");
   
     Texture texture;
-    texture.loadFromFile("C:\\Users\\Äìèòðèé\\Desktop\\C++(+MVS)_îáó÷åíèå\\Tetris\\SpriteTry.bmp");
+    texture.loadFromFile("C:\\Users\\Ð”Ð¼Ð¸Ñ‚Ñ€Ð¸Ð¹\\Desktop\\C++(+MVS)_Ð¾Ð±ÑƒÑ‡ÐµÐ½Ð¸Ðµ\\Tetris\\SpriteTry.bmp");
 
     Sprite sprite(texture);
     sprite.setTextureRect(IntRect(0, 0,18 , 18));
+
+    int dx = 0;
+    bool rotate = 0;
     while (window.isOpen())
     {
         Event event;
@@ -41,15 +45,56 @@ int main()
         {
             if (event.type == Event::Closed)
                 window.close();
+
+            if (event.type == Event::KeyPressed);
+
+            if (event.key.code == Keyboard::Up) rotate = true;
+
+            if (event.key.code == Keyboard::Down);
+
+            else if (event.key.code == Keyboard::Left) dx = -1;
+            
+            else if (event.key.code == Keyboard::Right) dx = 1;
+
         }
 
-        int n = 3;
-        for (int i = 0;i<4;i++)
+        for (int i=0;i<4;i++)
         {
-            a[i].x = Figures[n][i] % 2;
-            a[i].x = Figures[n][i] / 2;
-
+            a[i].x += dx;
         }
+        if (rotate)
+        {
+            Point p = a[2]; //the center of rotation
+
+          
+
+            for (int i=0;i<4;i++)
+            {
+                int x = a[i].y - p.y; // y - y0 
+                int y = a[i].x - p.x; // x - x0
+                a[i].x = p.x - x;
+                a[i].y = p.y + y;
+                /*
+				   X = x_0 + (x âˆ’ x_0) * cosâ¡(a) âˆ’(y âˆ’ y_0) * sinâ¡(a);
+				   Y = y_0 + (y âˆ’ y_0) * cosâ¡(a) + (x âˆ’ x_0) * sinâ¡(a);
+				   a=90
+				*/
+            }
+        }
+
+        int n = 5;// type of tetramino, based on arrow Figures
+
+        if(a[0].x == 0)
+        
+	        for (int i = 0;i<4;i++)
+	        {
+	        	a[i].x = Figures[n][i] % 2;
+	        	a[i].y = Figures[n][i] / 2;
+
+	        }
+            dx = 0;
+            rotate = 0;
+        
         window.clear(Color::White);
 
         for (int i=0;i<4;i++)
